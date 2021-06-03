@@ -1,0 +1,12 @@
+---
+title: "test"
+author: "Bruno"
+output: pdf_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+test
+this seems to be working, but there are some warnings, weirdly enough
