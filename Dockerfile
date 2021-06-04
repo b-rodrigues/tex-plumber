@@ -54,9 +54,12 @@ RUN Rscript -e "install.packages(c('plumber', 'dplyr', 'purrr', 'rmarkdown', 'bo
 EXPOSE 8000
 ENTRYPOINT ["R", "-e", "pr <- plumber::plumb(rev(commandArgs())[1]); args <- list(host = '0.0.0.0', port = 8000); if (packageVersion('plumber') >= '1.0.0') { pr$setDocs(TRUE) } else { args$swagger <- TRUE }; do.call(pr$run, args)"]
 
-# Copy installed example to default file at ~/plumber.R
-#ARG ENTRYPOINT_FILE=/usr/local/lib/R/library/plumber/plumber/04-mean-sum/plumber.R
-#RUN cp ${ENTRYPOINT_FILE} /srv/plumber/plumber.R
+# The final line will fail if you don't have a plumber.R file in the right path!
+# Put the file for instance in /home/ubuntu/my_apis/plumber.R
+# and mount the /home/ubuntu/my_apis/ folder to /srv/plumber/ 
+# when running Docker
+# If you don't have a plumber.R file on hand, you can get one from the {plumber}
+# examples: https://github.com/rstudio/plumber/tree/master/inst/plumber
 
 CMD ["/srv/plumber/plumber.R"]
 
